@@ -17,6 +17,12 @@
   },
   "preferGlobal": true,
   "bin": {
-    "p5": "p5-cli.js"
+    "p5": "bin/p5-cli.js"
+  },
+  "dependencies": {
+    "commander": "^2.8.1",
+    "express": "^4.12.4",
+    "live-server": "^0.7.1",
+    "p5": "^0.4.5"
   }
 }
