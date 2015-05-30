@@ -70,7 +70,7 @@ function useSketchFile( pathToSketch ) {
 
   // Verify that the provided path is to a .js file
   if ( ! /\.js/.test( pathToSketch ) ) {
-    console.error( 'Error: --sketch option must specify the path to a .js file' );
+    console.error( 'Error: file path must reference a .js sketch file' );
     process.exit( 1 );
   }
 
