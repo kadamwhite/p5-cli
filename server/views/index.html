@@ -12,11 +12,11 @@
     {%-- Load the P5 library itself --%}
     <script src="lib/p5.js"></script>
 
-    {%-- If --addons is specified, load all available p5 add-on libraries --%}
-    {% if addons %}
-    <script src="lib/addons/p5.dom.js"></script>
-    <script src="lib/addons/p5.sound.js"></script>
-    {% endif %}
+    {%-- Load all bundled P5 add-ons --%}
+    {% each addons %}
+    {%-- "." refers to the current element in the array, which is a string filename --%}
+    <script src="lib/addons/{{ . }}"></script>
+    {% endeach %}
 
     {%-- Load the file specified with the --sketch option --%}
     <script src="{{ sketchFile }}"></script>

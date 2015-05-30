@@ -19,6 +19,10 @@ var app = express();
 var serverDirectory = path.dirname( fs.realpathSync( __filename ) );
 var cliDirectory = path.join( serverDirectory, '../' );
 
+// Construct the path to where p5 is installed within the CLI:
+// `'node_modules/p5/lib'` is the path to the CLI's internal copy of p5
+var pathToP5LibDir = path.join( cliDirectory, 'node_modules/p5/lib' );
+
 // Middleware
 var serveIndex = require( 'serve-index' );
 var combynExpress = require( 'combynexpress' );
@@ -61,6 +65,20 @@ function useDirectory( serverRootPath ) {
 }
 
 /**
+ * Get a list of available p5 addon file names
+ *
+ * @return {String[]} An array of addon file names
+ */
+function getAddonsList() {
+  var addons = fs.readdirSync( path.join( pathToP5LibDir, 'addons' ) );
+
+  // This is all local; only load the unminified versions for easier debugging
+  return addons.filter(function( fileName ) {
+    return fileName.indexOf( '.min.js' ) < 0;
+  });
+}
+
+/**
  * Construct a page to serve a specified .js file
  *
  * @method useSketchFile
@@ -82,10 +100,6 @@ function useSketchFile( pathToSketch ) {
     process.exit( 1 );
   }
 
-  // Construct the path to where p5 is installed within the CLI:
-  // `'node_modules/p5/lib'` is the path to the CLI's internal copy of p5
-  var pathToP5LibDir = path.join( cliDirectory, 'node_modules/p5/lib' );
-
   // Serve the p5 lib/ directory as "/lib/" on the server
   app.use( '/lib', express.static( pathToP5LibDir ) );
 
@@ -93,7 +107,8 @@ function useSketchFile( pathToSketch ) {
   app.get( '/', function index( req, res, next ) {
     return res.render( 'index', {
       // Get the filename of the provided sketch file
-      sketchFile: path.basename( pathToSketch )
+      sketchFile: path.basename( pathToSketch ),
+      addons: getAddonsList()
     });
   });
 
