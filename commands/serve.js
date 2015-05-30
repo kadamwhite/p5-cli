@@ -3,10 +3,6 @@
  */
 'use strict';
 
-// var exec = require( 'child_process' ).exec;
-// var chalk = require( 'chalk' );
-
-
 var path = require( 'path' );
 
 var localServer = require( '../server/local-server' );
@@ -24,16 +20,20 @@ function serve( pathOrOptions, configOptions ) {
   var options; // Object defining any options specified for this CLI command
   var serverRoot; // The path to be used as the root of the web server
 
-  console.log( 'path or options : ', pathOrOptions );
-  console.log( '\noptions : ', configOptions );
-
   if ( typeof pathOrOptions === 'string' ) {
     // If the first argument is a string, a path to a directory was provided,
     // and the second argument is the options object
     options = configOptions;
 
-    // Serve the specified directory instead of the current working directory
-    serverRoot = path.resolve( process.cwd(), pathOrOptions );
+    // Check whether a .js file was provided
+    if ( /\.js/.test( pathOrOptions ) ) {
+      // If so, switch to --sketch mode
+      options.sketch = pathOrOptions;
+    } else {
+      // Local server mode, with a relative path: serve the specified directory
+      // instead of the current working directory
+      serverRoot = path.resolve( process.cwd(), pathOrOptions );
+    }
   } else {
     // If the first argument is not a string, an explicit directory to serve
     // was not provided and the first argument is the options object
@@ -43,7 +43,8 @@ function serve( pathOrOptions, configOptions ) {
     serverRoot = process.cwd();
   }
 
-  // If options.sketch is provided, save the value
+  // If options.sketch was provided, either with --sketch or by passing a path
+  // to a .js file, save that file path
   var sketchFile = options.sketch || null;
 
   // If options.port is specified, convert it to a number and store the value;
@@ -53,8 +54,9 @@ function serve( pathOrOptions, configOptions ) {
   // Configure the server based on whether a sketch file was provided
   if ( sketchFile ) {
     localServer.useSketchFile( sketchFile );
+    console.log( '\nServing sketch on port ' + port );
   } else {
-    localServer.useDirectory( process.cwd() );
+    localServer.useDirectory( serverRoot );
     console.log( '\nServing directory ' + serverRoot + ' on port ' + port );
   }
 

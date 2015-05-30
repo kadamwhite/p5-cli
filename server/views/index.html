@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>P5 Server</title>
+
+    <meta name="description" content="Created with the p5 CLI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {%-- Load the P5 library itself --%}
+    <script src="lib/p5.js"></script>
+
+    {%-- If --addons is specified, load all available p5 add-on libraries --%}
+    {% if addons %}
+    <script src="lib/addons/p5.dom.js"></script>
+    <script src="lib/addons/p5.sound.js"></script>
+    {% endif %}
+
+    {%-- Load the file specified with the --sketch option --%}
+    <script src="{{ sketchFile }}"></script>
+  </head>
+  <body></body>
+</html>

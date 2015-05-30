@@ -16,7 +16,8 @@ var app = express();
 // of p5 from within the CLI's node_modules directory: store the path to the
 // install of the CLI itself (determined in relation to this local-server.js
 // file by stepping up to the project root) to aid in locating those p5 files.
-var cliDirectory = path.join( path.dirname( fs.realpathSync( __filename ) ), '../' );
+var serverDirectory = path.dirname( fs.realpathSync( __filename ) );
+var cliDirectory = path.join( serverDirectory, '../' );
 
 // Middleware
 var serveIndex = require( 'serve-index' );
@@ -24,7 +25,14 @@ var combynExpress = require( 'combynexpress' );
 var favicon = require( 'serve-favicon' );
 
 // Favicons make everything better!
-app.use( favicon( __dirname + '/assets/favicon.ico' ) );
+app.use( favicon( serverDirectory + '/assets/favicon.ico' ) );
+
+// Set up Combyne (used with the --sketch option)
+app.engine( 'html', combynExpress() );
+// Use Combyne with .html template files
+app.set( 'view engine', 'html' );
+// All templates are located in server/views/
+app.set( 'views', serverDirectory + '/views' );
 
 /**
  * Expose a given path for serving files and browsing directories
@@ -33,6 +41,21 @@ app.use( favicon( __dirname + '/assets/favicon.ico' ) );
  * @param {String} path A path on the file system to serve
  */
 function useDirectory( serverRootPath ) {
+  var dirStats;
+
+  // Verify that the specified directory exits & is a directory
+  try {
+    dirStats = fs.statSync( serverRootPath );
+
+    if ( ! dirStats.isDirectory() ) {
+      console.error( 'Error: ' + serverRootPath + ' is not a directory' );
+      process.exit( 1 );
+    }
+  } catch( e ) {
+    console.error( 'Error: ' + serverRootPath + ' does not exist' );
+    process.exit( 1 );
+  }
+
   app.use( express.static( serverRootPath ) );
   app.use( serveIndex( serverRootPath ) );
 }
@@ -41,25 +64,21 @@ function useDirectory( serverRootPath ) {
  * Construct a page to serve a specified .js file
  *
  * @method useSketchFile
- * @param {String} sketchFilePath A path to a sketch file to use
+ * @param {String} pathToSketch An (absolute) path to a JS sketch file to use
  */
-function useSketchFile( sketchFilePath ) {
+function useSketchFile( pathToSketch ) {
 
   // Verify that the provided path is to a .js file
-  if ( ! /\.js/.test( sketchFilePath ) ) {
+  if ( ! /\.js/.test( pathToSketch ) ) {
     console.error( 'Error: --sketch option must specify the path to a .js file' );
     process.exit( 1 );
   }
-
-  // Resolve the relative path to the sketch file from the directory from
-  // which the server was invoked
-  var pathToSketch = path.join( process.cwd(), sketchFilePath );
 
   // Verify that the specified sketch file exists
   try {
     fs.statSync( pathToSketch );
   } catch( e ) {
-    console.error( 'Error: ' + sketchFilePath + ' does not exist!' );
+    console.error( 'Error: ' + pathToSketch + ' does not exist' );
     process.exit( 1 );
   }
 
@@ -71,8 +90,11 @@ function useSketchFile( sketchFilePath ) {
   app.use( '/lib', express.static( pathToP5LibDir ) );
 
   // For the server index, render out a basic sketch HTML page
-  app.get( '/', function( req, res, next ) {
-    res.send( 'TODO: Render a page to serve that sketch' );
+  app.get( '/', function index( req, res, next ) {
+    return res.render( 'index', {
+      // Get the filename of the provided sketch file
+      sketchFile: path.basename( pathToSketch )
+    });
   });
 
   // Serve the directory whence the sketch file, in case it loads any
