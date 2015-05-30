@@ -38,7 +38,7 @@ To start a basic web server, navigate (on the command line) to the directory wit
 p5 serve
 ```
 
-This command starts a server in the current directory. You can now go to http://localhost:4444 (or http://127.0.0.1:4444 -- they mean the same thing) to see your files in the browser. Click on an HTML file that loads your p5 sketch, and you'll be good to go.
+This command starts a server in the current directory. You can now go to [http://localhost:4444](http://localhost:4444) (or [http://127.0.0.1:4444](http://127.0.0.1:4444) -- they mean the same thing) to see your files in the browser. Click on an HTML file that loads your p5 sketch, and you'll be good to go.
 
 You can also specify a particular directory to serve. For example, if I'm on OSX and I've downloaded the [p5.js complete package](http://p5js.org/download/) from the p5 website and extracted that archive in my Downloads folder, I could use this command to start a server in the example project directory:
 
@@ -46,7 +46,7 @@ You can also specify a particular directory to serve. For example, if I'm on OSX
 p5 serve Downloads/p5
 ```
 
-If you do that you should be able to go to http://localhost:4444/empty-example/ and see a blank page. Add your own code to that example sketch, reload, and your sketch will show up in your browser.
+If you do that you should be able to go to [http://localhost:4444/empty-example/](http://localhost:4444/empty-example/) and see a blank page. Add your own code to that example sketch, reload, and your sketch will show up in your browser.
 
 
 ### Running a Sketch File
@@ -59,7 +59,7 @@ Assuming that you have made a file called "mysketch.js" and that on the command 
 p5 serve mysketch.js
 ```
 
-This will start a web server as usual, but when you visit http://localhost:4444, this time you'll see a custom HTML page that will auto-load P5 and the sketch file you specified. Write a sketch, save it as a .js file, serve that file with `p5 run`, and you're off!
+This will start a web server as usual, but when you visit [http://localhost:4444](http://localhost:4444), this time you'll see a custom HTML page that will auto-load P5 and the sketch file you specified. Write a sketch, save it as a .js file, serve that file with `p5 run`, and you're off!
 
 ### Options
 
@@ -79,4 +79,4 @@ What would make this a useful tool for you? [Open an issue](https://github.com/k
 
 p5-cli &copy; 2015 K. Adam White & released under the [MIT](./LICENSE) expat license.
 
-[p5.js](https://github.com/processing/p5) is maintained through the Processing foundation, and used within this tool under the terms of the GPL license.
+[p5.js](https://github.com/processing/p5.js) is maintained through the Processing foundation, and used within this tool under the terms of the GPL license.
