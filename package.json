@@ -20,10 +20,12 @@
     "p5": "bin/p5-cli.js"
   },
   "dependencies": {
+    "combynexpress": "^1.0.0",
     "commander": "^2.8.1",
     "express": "^4.12.4",
     "live-server": "^0.7.1",
     "p5": "^0.4.5",
+    "serve-favicon": "^2.2.1",
     "serve-index": "^1.6.4"
   }
 }

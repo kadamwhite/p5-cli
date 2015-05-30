@@ -37,7 +37,7 @@ function serve( pathOrOptions, configOptions ) {
   } else {
     // If the first argument is not a string, an explicit directory to serve
     // was not provided and the first argument is the options object
-    options = pathOrOptions
+    options = pathOrOptions;
 
     // Serve the current working directory by default
     serverRoot = process.cwd();
