@@ -13,7 +13,8 @@
   "author": "K Adam White",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "grunt lint",
+    "test": "grunt lint"
   },
   "preferGlobal": true,
   "bin": {
@@ -26,5 +27,14 @@
     "p5": "^0.4.5",
     "serve-favicon": "^2.2.1",
     "serve-index": "^1.6.4"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-jscs": "^1.8.0",
+    "jscs-stylish": "^0.3.1",
+    "jshint-stylish": "^2.0.0",
+    "load-grunt-tasks": "^3.2.0"
   }
 }

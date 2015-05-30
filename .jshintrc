@@ -1,0 +1,16 @@
+{
+  "boss": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "expr": true,
+  "immed": true,
+  "noarg": true,
+  "strict": true,
+  "undef": true,
+  "unused": "vars",
+
+  "esnext": true,
+  "node": true
+}

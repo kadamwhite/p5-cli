@@ -21,7 +21,7 @@ var serveDescriptionText = [
   '    p5 serve some/path   Starts a web server in the "some/path" directory',
   '    p5 serve sketch.js   Creates a page to show the specified sketch file',
   '    p5 run               Same as `p5 serve`'
-].join('\n');
+].join( '\n' );
 
 // Define `p5 serve` command
 p5cli.command( 'serve' )

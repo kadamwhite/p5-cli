@@ -51,7 +51,7 @@ function useDirectory( serverRootPath ) {
       console.error( 'Error: ' + serverRootPath + ' is not a directory' );
       process.exit( 1 );
     }
-  } catch( e ) {
+  } catch ( e ) {
     console.error( 'Error: ' + serverRootPath + ' does not exist' );
     process.exit( 1 );
   }
@@ -77,7 +77,7 @@ function useSketchFile( pathToSketch ) {
   // Verify that the specified sketch file exists
   try {
     fs.statSync( pathToSketch );
-  } catch( e ) {
+  } catch ( e ) {
     console.error( 'Error: ' + pathToSketch + ' does not exist' );
     process.exit( 1 );
   }
