@@ -13,6 +13,7 @@
   "author": "K Adam White",
   "license": "MIT",
   "scripts": {
+    "publish": "npm test",
     "lint": "grunt lint",
     "test": "grunt lint"
   },
