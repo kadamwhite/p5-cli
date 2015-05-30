@@ -14,7 +14,7 @@ var serveCommand = require( '../commands/serve' );
 var p5cli = program.version( appVersion );
 
 // Define `p5 serve` command
-p5cli.command( 'serve' )
+p5cli.command( 'serve <file or directory>' )
 
   // Add the `p5 run` alias for this command
   .alias( 'run' )
@@ -22,12 +22,12 @@ p5cli.command( 'serve' )
   // Provide descriptive text that will display when running `p5 serve --help`
   .description( 'Start a local server to run a p5 sketch' )
 
-  // Permit specifying a relative path to serve instead of the cwd
-  .option( '[directory]', 'Relative path to a directory to serve (defaults to the current directory)' )
+  // Define the usage syntax of the library
+  .usage( '<file or directory path> [options]' )
 
   // Optionally serve an HTML page loading an arbitrary JavaScript file,
   // instead of the current working directory
-  .option( '-s, --sketch [file]', 'Relative path to a JavaScript sketch file to use (optional)' )
+  .option( '-s, --sketch [file]', 'Relative path to a JavaScript sketch file to use' )
 
   // Permit overriding the :4444 port default for the local server
   .option( '-p, --port [port]', 'HTTP port on which to start the server', '4444' )
