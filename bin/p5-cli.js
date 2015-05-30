@@ -15,9 +15,7 @@ var p5cli = program.version( appVersion );
 
 // Documentation for the `p5 serve` command, defined below
 var serveDescriptionText = [
-  '  Starts a local server to run a p5 sketch',
-  '',
-  '  Example commands:',
+  'Starts a local server to run a p5 sketch. Example commands:',
   '',
   '    p5 serve             Starts a web server in the current directory',
   '    p5 serve some/path   Starts a web server in the "some/path" directory',
