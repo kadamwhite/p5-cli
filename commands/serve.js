@@ -24,8 +24,8 @@ function serve( pathOrOptions, configOptions ) {
   var options; // Object defining any options specified for this CLI command
   var serverRoot; // The path to be used as the root of the web server
 
-  console.log( 'path or options object: ', pathOrOptions );
-  console.log( '\noptions object: ', configOptions );
+  console.log( 'path or options : ', pathOrOptions );
+  console.log( '\noptions : ', configOptions );
 
   if ( typeof pathOrOptions === 'string' ) {
     // If the first argument is a string, a path to a directory was provided,
@@ -55,10 +55,10 @@ function serve( pathOrOptions, configOptions ) {
     localServer.useSketchFile( sketchFile );
   } else {
     localServer.useDirectory( process.cwd() );
+    console.log( '\nServing directory ' + serverRoot + ' on port ' + port );
   }
 
   // Run the configured server
-  console.log( '\nServing directory ' + serverRoot + ' on port ' + port );
   localServer.run({
     port: port
   });
