@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 'use strict';
 
+// Auto-update the CLI if the installed version is behind the latest
+var autoUpdate = require( '../lib/auto-update' );
+
 // Use commander to define CLI commands
 var program = require( 'commander' );
 
-// Get version from package.json
-var appVersion = require( '../package' ).version;
-
 // Link to the definition of the "serve" CLI subcommand
 var serveCommand = require( '../commands/serve' );
+
+// Get version from package.json
+var appVersion = require( '../package' ).version;
 
 // Create the CLI application object
 var p5cli = program.version( appVersion );
@@ -45,5 +48,8 @@ p5cli.command( 'serve' )
   // Run the "serve" command with the provided CLI options
   .action( serveCommand );
 
-// Kick off command parsing & execution
-p5cli.parse( process.argv );
+// Ensure latest CLI version
+autoUpdate().then(function() {
+  // Kick off command parsing & execution
+  p5cli.parse( process.argv );
+});
