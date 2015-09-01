@@ -20,7 +20,7 @@ module.exports = function( grunt ) {
         src: 'Gruntfile.js'
       },
       lib: {
-        src: [ 'bin/**/*.js', 'commands/**/*.js', 'server/**/*.js' ]
+        src: [ 'bin/**/*.js', 'commands/**/*.js', 'lib/**/*.js', 'server/**/*.js' ]
       }
     },
 
